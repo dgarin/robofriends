@@ -1,0 +1,91 @@
+* Use Components -> like LEGO's
+* create-react-app /template npm
+
+    To create a Component
+    * import ...
+      class Xxx extends Component {
+          render(){
+              return( // return one thing div's inside a massive div
+                  ...
+                  ...
+              );
+          }
+      }
+      export default Xxx;
+
+
+* tachyons -> like bootstrap
+    npm install tachyons
+    className='tc' //example text center 
+    USE TACHYONS 
+
+props -> greeting={'Hello'}
+        children -> {this.props.greeting}
+
+const {name, email, id} = props; // destructuring
+const Card = ({name, email, id}) -> then use just name, email, id without this.props or props
+
+
+
+To deploy a lot of Components
+    // pure components way
+    const cardComponent = robots.map((user, i)=>{
+        return <Card id={robots[i].id} name={robots[i].name} email={robots[i].email}/>
+    })
+    return (
+        <div>
+            {cardComponent}
+        </div>
+    );
+
+better than the above
+
+    const CardList = ({robots}) => {
+    const cardArray = robots.map((user, i)=>{
+        return <Card key={i} id={robots[i].id} name={robots[i].name} email={robots[i].email}/>
+    })
+    return (
+        <div>
+            {cardArray}
+        </div>
+    );
+}
+
+BETTER
+
+        const CardList = ({robots}) => {
+            return (
+                <div>
+                    {
+                    robots.map((user, i)=>{
+                    return ( 
+                        <Card 
+                            key={i} 
+                            id={robots[i].id} 
+                            name={robots[i].name} 
+                            email={robots[i].email}
+                        />
+                    );
+                    })
+            }  
+                </div>
+            );
+        }
+
+STATE!
+    state >> props
+    to change state 
+        this.setState({xx: event.target.value})
+
+To get/fetch data from an API
+
+    componentDidMount(){
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => {
+                return response.json();
+            })
+            .then(users =>{
+                this.setState({robots: users})
+            });
+    }
+
